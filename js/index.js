@@ -1,4 +1,5 @@
 const secs = Array.from(document.querySelectorAll(".sec"))
+const url = "https://ender-backend.000webhostapp.com/skills"
 hoverAnimation(home)
 home.addEventListener("click", (e) => {
     e.preventDefault()
@@ -6,10 +7,22 @@ home.addEventListener("click", (e) => {
     modalAnimation(e)
 })
 
-about.addEventListener("click", (e) => {
+about.addEventListener("click", async (e) => {
     e.preventDefault()
     hoverAnimation(e.currentTarget)
     modalAnimation(e)
+    fetch(url)
+    .then(response => {
+        if (response.ok) {
+            return response.json()
+        } else if(response.status === 404) {
+            return Promise.reject('error 404')
+        } else {
+            return Promise.reject('some other error: ' + response.status)
+        }
+    })
+    .then(data => console.log('data is', data))
+    .catch(error => console.log('error is', error));
 })
 
 contact.addEventListener("click", (e) => {
@@ -18,6 +31,11 @@ contact.addEventListener("click", (e) => {
     modalAnimation(e)
 })
 skills.addEventListener("click", (e) => {
+    e.preventDefault()
+    hoverAnimation(e.currentTarget)
+    modalAnimation(e)
+})
+blog.addEventListener("click", (e) => {
     e.preventDefault()
     hoverAnimation(e.currentTarget)
     modalAnimation(e)
@@ -43,8 +61,6 @@ function modalAnimation(e){
     let elHeight = el.children[0].getBoundingClientRect()
     let className = getComputedStyle(el.children[0]).margin
     let classNameOther = getComputedStyle(others.children[0]).margin
-    console.log(className)
-    console.log(classNameOther)
     console.log(el.children[0].getBoundingClientRect())
     let anim = others.animate([
         { height: otherHeight.height+"px" },
