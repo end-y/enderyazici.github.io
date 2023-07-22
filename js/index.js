@@ -1,5 +1,4 @@
 const secs = Array.from(document.querySelectorAll(".sec"))
-const url = "https://ender-backend.000webhostapp.com/skills"
 hoverAnimation(home)
 home.addEventListener("click", (e) => {
     e.preventDefault()
@@ -11,18 +10,6 @@ about.addEventListener("click", async (e) => {
     e.preventDefault()
     hoverAnimation(e.currentTarget)
     modalAnimation(e)
-    fetch(url)
-    .then(response => {
-        if (response.ok) {
-            return response.json()
-        } else if(response.status === 404) {
-            return Promise.reject('error 404')
-        } else {
-            return Promise.reject('some other error: ' + response.status)
-        }
-    })
-    .then(data => console.log('data is', data))
-    .catch(error => console.log('error is', error));
 })
 
 contact.addEventListener("click", (e) => {
