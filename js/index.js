@@ -1,33 +1,56 @@
 const secs = Array.from(document.querySelectorAll(".sec"))
+const url = "https://ender-backend.000webhostapp.com/"
+const about = document.getElementById("about")
+const contact = document.getElementById("contact")
+const skills = document.getElementById("skills") 
+const blog = document.getElementById("blog") 
+const home = document.getElementById("home")
+const modalFold = document.getElementById("modalFold")
+const cacheManager = new CacheManager()
+const page = window.location.hash.slice(1)
+if(page == "about"){
+    routeManager.navigate("/#about")
+}else if(page == "skills"){
+    routeManager.navigate("/#skills")
+}else if(page == "contact"){
+    routeManager.navigate("/#contact")
+}else if(page == "blog"){
+    routeManager.navigate("/#blog")
+}
+
+
 hoverAnimation(home)
 home.addEventListener("click", (e) => {
     e.preventDefault()
+    routeManager.navigate("/")
     hoverAnimation(e.currentTarget)
     modalAnimation(e)
 })
 
 about.addEventListener("click", async (e) => {
-    e.preventDefault()
-    hoverAnimation(e.currentTarget)
-    modalAnimation(e)
+   runAbout(e)
 })
 
-contact.addEventListener("click", (e) => {
-    e.preventDefault()
-    hoverAnimation(e.currentTarget)
-    modalAnimation(e)
+contact.addEventListener("click", async (e) => {
+    runContact(e)
 })
-skills.addEventListener("click", (e) => {
-    e.preventDefault()
-    hoverAnimation(e.currentTarget)
-    modalAnimation(e)
+skills.addEventListener("click", async (e) => {
+    runSkills(e)
 })
-blog.addEventListener("click", (e) => {
-    e.preventDefault()
-    hoverAnimation(e.currentTarget)
-    modalAnimation(e)
+blog.addEventListener("click", async (e) => {
+    runBlog(e)
 })
-
+document.getElementById("close").addEventListener("click", () => {
+    modalFold.classList.add("reverse")
+})
+modalFold.addEventListener("animationend", () => {
+    if(modalFold.classList.contains("reverse")){
+        modalFold.classList.remove("reverse")
+        setTimeout(() => {
+            modalFold.style.display = "none"
+        }, 0);
+    }
+})
 function hoverAnimation(e){
     back.style.transform = "skewX(10deg)"
     let {x,width,height} = e.getBoundingClientRect()
@@ -40,15 +63,13 @@ function hoverAnimation(e){
     other.forEach(e => e.style.color = "black")
     back.ontransitionend = () => back.style.transform = "skewX(0deg)"
 }
-function modalAnimation(e){
-    let el = secs.find(a => a.getAttribute("section-id") == e.currentTarget.id)
-    let others = secs.find(a => a.getAttribute("section-id") != e.currentTarget.id && !Array.from(a.classList).includes("d-none"))
+function modalAnimation(e,blog=false){
+    let el = secs.find(a => a.getAttribute("section-id") == e.target.id)
+    let others = secs.find(a => a.getAttribute("section-id") != e.target.id && !Array.from(a.classList).includes("d-none"))
+    let isBlog = others.getAttribute("section-id") == "blog"
     el.classList.remove("d-none")
-    let otherHeight = others.children[0].getBoundingClientRect()
+    let otherHeight = isBlog ? others.getBoundingClientRect() : others.children[0].getBoundingClientRect()
     let elHeight = el.children[0].getBoundingClientRect()
-    let className = getComputedStyle(el.children[0]).margin
-    let classNameOther = getComputedStyle(others.children[0]).margin
-    console.log(el.children[0].getBoundingClientRect())
     let anim = others.animate([
         { height: otherHeight.height+"px" },
         { height: '0px' }
@@ -62,10 +83,46 @@ function modalAnimation(e){
     
     el.animate([
         { height: '0px' },
-        { height: elHeight.height +"px" }
+        { height: blog ? window.innerHeight-100+"px" : elHeight.height +"px" }
       ], {
         duration: 1000,
         fill:"forwards",
         easing:"ease-out"
     });
 }
+
+async function get(link){
+    try {
+        let response = await fetch(url+link,{
+            method: 'GET',
+        })
+        if (response.ok) {
+            return await response.json()
+        } else if(response.status === 404) {
+            return Promise.reject('error 404')
+        } else {
+            return Promise.reject('some other error: ' + response.status)
+        }
+    } catch (error) {
+        console.log('error is', error)
+    }
+    
+}
+async function getFull(link){
+    try {
+        let response = await fetch(link,{
+            method: 'GET',
+        })
+        if (response.ok) {
+            return await response.json()
+        } else if(response.status === 404) {
+            return Promise.reject('error 404')
+        } else {
+            return Promise.reject('some other error: ' + response.status)
+        }
+    } catch (error) {
+        console.log('error is', error)
+    }
+    
+}
+

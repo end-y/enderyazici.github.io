@@ -20,7 +20,8 @@ let unicodes = {
     "user" : ["\uf007","\uf4fb","\uf504","\uf508"],
     "brands" : ["\uf1cb","\uf09b","\uf099","\uf08c"],
     "skills" : ["\uf457","\uf3b8","\uf13b","\uf13c" ],
-    "home" : ["\uf015","\ue3af", "\ue00d","\ue1b0"]
+    "home" : ["\uf015","\ue3af", "\ue00d","\ue1b0"],
+    "blog": ["\uf781","\uf143", "\uf09e","\uf781"]
 }
 
 Bubble.prototype.draw = function(text=true) {
@@ -121,6 +122,12 @@ contact.addEventListener("click", () => {
 skills.addEventListener("click", () => {
     bubbleArray.forEach(e => {
         e.brand = getUnicode("skills")
+        e.size = 0
+    })
+})
+blog.addEventListener("click", () => {
+    bubbleArray.forEach(e => {
+        e.brand = getUnicode("blog")
         e.size = 0
     })
 })

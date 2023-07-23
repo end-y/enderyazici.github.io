@@ -11,7 +11,14 @@
 </head>
 <body>
     <canvas id="canvas"></canvas>
-
+    <div id="modalFold" class="modalFold">
+        <div id="box" class="box">
+            <button style="all: unset; position: absolute; right: 20px; top: 20px; cursor: pointer;" id="close">
+                <i class="fa-solid fa-xl fa-xmark"></i>
+            </button>
+            <div id="content"></div>
+        </div>
+    </div>
     <div class="container">
         <div class="row">
             <div class="col-12 d-flex flex-column align-items-center justify-content-center text-center " style="height: calc(100vh - 5px); vertical-align: middle;">
@@ -25,6 +32,7 @@
                     <div style="position: absolute; transition: all .2s ease-in; backface-visibility: hidden; top:0; left: 0; background-color: black; z-index:-1;" id="back" class="h-100"></div>
                     <button class="btn btnSkew" id="home" >Home</button>
                     <button class="btn btnSkew" id="about" >About</button>
+                    <button class="btn btnSkew" id="blog" >Blog</button>
                     <button class="btn btnSkew" id="skills" >Skills</button>
                     <button class="btn btnSkew" id="contact" >Contact</button>
                 </div>
@@ -34,8 +42,11 @@
                         <p>
                             <img src="./images/me.jpg" class="img-thumbnail " style="border-radius: 50%;" />
                         </p>
-                        <p >Aggresive problem solver, dedicated to learn new skills and technologies, fast-learner and hardworking person.
-                            Before I became a programmer, I worked in various jobs such as journalism, supervisor. But in September 2018 I decided to change my profession. Especially, In pandemic period, I improved myself while learning programming. Finally I found my first software job in March 2020 and I currently work there. In this time period, I worked with JS, Php, Typescript, HTML and CSS. With these technologies, I built up some websites and smart board apps.</p>
+                        <p id="dataAbout" class="data" ></p>
+                    </div>
+                </section>
+                <section class="sec d-none mt-4 bg-white" style="overflow: auto;" section-id="blog">
+                    <div id="blogSec" style="padding: 16px;">
                     </div>
                 </section>
                 <section class="text-start sec d-none mt-4 bg-white"  section-id="skills">
@@ -49,31 +60,31 @@
                         <div class="d-flex">
                             <p class="mx-3 skillhead">Javascript</p> 
                             <p>
-                                <div class="bar" style="width: 70%"></div>
+                                <div id="JSbar" class="bar" style="width: 70%"></div>
                             </p>
                         </div>
                         <div class="d-flex">
                             <p class="mx-3 skillhead" >Php</p> 
                             <p>
-                                <div style="width: 40%" class="bar"></div>
+                                <div id="PHPbar" style="width: 40%" class="bar"></div>
                             </p>
                         </div>
                         <div class="d-flex">
                             <p class="mx-3 skillhead">HTML</p> 
                             <p>
-                                <div style="width: 100%" class="bar"></div>
+                                <div id="HTMLbar" style="width: 100%" class="bar"></div>
                             </p>
                         </div>
                         <div class="d-flex">
                             <p class="mx-3 skillhead">CSS</p> 
                             <p>
-                                <div style="width: 70%" class="bar"></div>
+                                <div id="CSSbar" style="width: 70%" class="bar"></div>
                             </p>
                         </div>
                         <div class="d-flex">
                             <p class="mx-3 skillhead">SQL</p> 
                             <p>
-                                <div style="width: 60%" class="bar"></div>
+                                <div id="SQLbar" style="width: 60%" class="bar"></div>
                             </p>
                         </div>
                     </div>
@@ -88,16 +99,16 @@
                         </div>
                         <hr class="mb-5">
                         <div class="d-flex align-items-center justify-content-center mb-4">
-                            <a style="all:unset; cursor: pointer;" class="mx-2" href="https://github.com/end-y" target="_blank">
+                            <a id="github" style="all:unset; cursor: pointer;" class="mx-2" href="#" target="_blank">
                                 <i style="color: #c6bbb7" class="fa-brands fa-2xl fa-github"></i>
                             </a>
-                            <a style="all:unset; cursor: pointer;" href="https://linkedin.com/end-y" target="_blank">
+                            <a id="linkedin" style="all:unset; cursor: pointer;" href="#" target="_blank">
                                 <i style="color: #c6bbb7" class="fa-brands fa-2xl fa-linkedin"></i>
                             </a>
-                            <a style="all:unset; cursor: pointer;" class="mx-2" href="https://twitter.com/enderefendi" target="_blank">
+                            <a id="twitter" style="all:unset; cursor: pointer;" class="mx-2" href="#" target="_blank">
                                 <i style="color: #c6bbb7" class="fa-brands fa-2xl fa-twitter"></i>
                             </a>
-                            <a style="all:unset; cursor: pointer;" href="https://codepen.com/ender123" target="_blank">
+                            <a id="codepen" style="all:unset; cursor: pointer;" href="#" target="_blank">
                                 <i style="color: #c6bbb7" class="fa-brands fa-2xl fa-codepen"></i>
                             </a>
                         </div>
@@ -108,6 +119,10 @@
         
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="./js/functions.js"></script>
+    <script src="./js/cacheManager.js"></script>
+    <script src="./js/routeManager.js"></script>
+
     <script src="./js/background.js"></script>
     <script src="./js/index.js"></script>
 </body>
