@@ -14,7 +14,7 @@ async function runAbout(e){
     event.preventDefault()
     
     let n = await runCache("about")
-    document.getElementById("dataAbout").innerHTML = n.short
+    document.getElementById("dataAbout").innerHTML = filterXSS(n.short)
     about.innerHTML = `About`
     hoverAnimation(event.target)
     modalAnimation(event)
@@ -27,10 +27,10 @@ async function runContact(e){
     event.preventDefault()
    
     let n = await runCache("contact")
-    document.getElementById("github").href = n.github
-    document.getElementById("twitter").href = n.twitter
-    document.getElementById("codepen").href = n.codepen
-    document.getElementById("linkedin").href = n.linkedin
+    document.getElementById("github").href = filterXSS(n.github)
+    document.getElementById("twitter").href = filterXSS(n.twitter)
+    document.getElementById("codepen").href = filterXSS(n.codepen)
+    document.getElementById("linkedin").href = filterXSS(n.linkedin)
     contact.innerHTML = `Contact`
     hoverAnimation(event.target)
     modalAnimation(event)
@@ -44,11 +44,11 @@ async function runSkills(e){
     event.preventDefault()
 
     const n = await runCache("skills")
-    document.getElementById("JSbar").style.width = n.js + "%"
-    document.getElementById("PHPbar").style.width = n.php + "%"
-    document.getElementById("HTMLbar").style.width = n.html + "%"
-    document.getElementById("CSSbar").style.width = n.css + "%"
-    document.getElementById("SQLbar").style.width = n.sql + "%"
+    document.getElementById("JSbar").style.width = filterXSS(n.js) + "%"
+    document.getElementById("PHPbar").style.width = filterXSS(n.php) + "%"
+    document.getElementById("HTMLbar").style.width = filterXSS(n.html) + "%"
+    document.getElementById("CSSbar").style.width = filterXSS(n.css) + "%"
+    document.getElementById("SQLbar").style.width = filterXSS(n.sql) + "%"
     skills.innerHTML = `Skills`
     hoverAnimation(event.target)
     modalAnimation(event)
@@ -68,11 +68,11 @@ async function runBlog(e){
         let h2 = document.createElement("h2")
         let short = document.createElement("p")
         let date = document.createElement("p")
-        h2.innerHTML = i.head
+        h2.innerHTML = filterXSS(i.head)
         h2.style.marginBottom = "20px"
-        date.innerText =  i.date
+        date.innerText =  filterXSS(i.date)
         blogDiv.style.textAlign = "left"
-        short.innerHTML = i.short
+        short.innerHTML = filterXSS(i.short)
         blogDiv.appendChild(h2)
         blogDiv.appendChild(date)
         blogDiv.appendChild(short)
@@ -87,9 +87,9 @@ async function runBlog(e){
             let con = document.createElement("div")
             let h1 = document.createElement("h1")
             h1.style.marginBottom="20px"
-            h1.innerText = res.head
+            h1.innerHTML = filterXSS(res.head)
             let p = document.createElement("p")
-            p.innerHTML = res.short
+            p.innerHTML = filterXSS(res.short)
             con.appendChild(h1)
             con.appendChild(p)
             document.getElementById("content").appendChild(con)
