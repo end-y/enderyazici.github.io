@@ -61,7 +61,7 @@ async function runBlog(e){
     blog.innerHTML = `<div class="lds-dual-ring"></div>`
     e.preventDefault()
     const event = e
-    const n = await runCache("")
+    const n = await runCache("blog")
     for(let i of n){
         let blogDiv = document.createElement("div")
         blogDiv.style.cursor = "pointer"

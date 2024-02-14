@@ -4,11 +4,14 @@ const about = document.getElementById("about")
 const contact = document.getElementById("contact")
 const skills = document.getElementById("skills") 
 const blog = document.getElementById("blog") 
+const projects = document.getElementById("projects")
 const home = document.getElementById("home")
 const modalFold = document.getElementById("modalFold")
 const cacheManager = new CacheManager()
 const page = window.location.hash.slice(1)
-if(page == "about"){
+if(page == ""){
+    routeManager.navigate("/")
+}else if(page == "about"){
     routeManager.navigate("/#about")
 }else if(page == "skills"){
     routeManager.navigate("/#skills")
@@ -30,7 +33,9 @@ home.addEventListener("click", (e) => {
 about.addEventListener("click", async (e) => {
    runAbout(e)
 })
-
+projects.addEventListener("click", () => {
+    window.location.href = "https://enderyaziciprojects.work"
+})
 contact.addEventListener("click", async (e) => {
     runContact(e)
 })
