@@ -23,7 +23,9 @@ class RouteManager {
   window.routeManager = new RouteManager();
   
   function homeHandler() {
-    console.log("home")
+    setTimeout(() => {
+      document.getElementById("home").click()
+  }, 0);
   }
   
   function aboutHandler(e) {

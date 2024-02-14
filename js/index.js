@@ -11,7 +11,6 @@ const cacheManager = new CacheManager()
 const page = window.location.hash.slice(1)
 if(page == ""){
     routeManager.navigate("/")
-    history.pushState({},'',"/")
 }else if(page == "about"){
     routeManager.navigate("/#about")
 }else if(page == "skills"){
