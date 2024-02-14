@@ -24,7 +24,7 @@ class RouteManager {
   
   function homeHandler() {
     setTimeout(() => {
-      document.getElementById("home").click()
+      history.pushState({},'',"/")
   }, 0);
   }
   
