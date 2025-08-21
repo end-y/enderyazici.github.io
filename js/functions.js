@@ -96,27 +96,99 @@ async function runContact(e) {
   // window.routeManager.navigate("/contact")
 }
 
+// Modern Skills Animation Functions
+function animateProgressRing(element, percentage, duration = 1000) {
+  const circumference = 219.91; // 2 * π * 35 (radius)
+  const offset = circumference - (percentage / 100) * circumference;
+
+  // Set initial state
+  element.style.strokeDashoffset = circumference;
+
+  // Animate to target
+  setTimeout(() => {
+    element.style.strokeDashoffset = offset;
+  }, 100);
+}
+
+function animatePercentageText(element, targetPercentage, duration = 1000) {
+  let currentPercentage = 0;
+  const increment = targetPercentage / (duration / 16); // 60fps
+
+  const timer = setInterval(() => {
+    currentPercentage += increment;
+    if (currentPercentage >= targetPercentage) {
+      currentPercentage = targetPercentage;
+      clearInterval(timer);
+    }
+    element.textContent = Math.round(currentPercentage) + "%";
+  }, 16);
+}
+
+function triggerSkillAnimations(skillData) {
+  const skills = [
+    { id: "js", name: "javascript", value: skillData.js },
+    { id: "php", name: "php", value: skillData.php },
+    { id: "html", name: "html", value: skillData.html },
+    { id: "css", name: "css", value: skillData.css },
+    { id: "sql", name: "sql", value: skillData.sql },
+  ];
+
+  skills.forEach((skill, index) => {
+    const circle = document.getElementById(`${skill.id}-circle`);
+    const percentage = document.getElementById(`${skill.id}-percentage`);
+    const card = document.querySelector(`[data-skill="${skill.name}"]`);
+
+    if (circle && percentage && card) {
+      // Update data attribute with actual value from backend
+      card.setAttribute("data-percentage", skill.value);
+
+      // Animate progress ring
+      setTimeout(() => {
+        animateProgressRing(circle, skill.value);
+        animatePercentageText(percentage, skill.value);
+      }, index * 100);
+    }
+  });
+}
+
 async function runSkills(e) {
   const event = e;
   skills.innerHTML = `<div class="lds-dual-ring"></div>`;
   event.preventDefault();
 
-  const n = await runCache("skill");
-  const skillData = n.data || n;
-  document.getElementById("JSbar").style.width = filterXSS(skillData.js) + "%";
-  document.getElementById("PHPbar").style.width =
-    filterXSS(skillData.php) + "%";
-  document.getElementById("HTMLbar").style.width =
-    filterXSS(skillData.html) + "%";
-  document.getElementById("CSSbar").style.width =
-    filterXSS(skillData.css) + "%";
-  document.getElementById("SQLbar").style.width =
-    filterXSS(skillData.sql) + "%";
-  skills.innerHTML = `Skills`;
-  hoverAnimation(event.target);
-  modalAnimation(event);
-  history.pushState({}, "", "/#skills");
-  // window.routeManager.navigate("/skills")
+  try {
+    const n = await runCache("skill");
+    const skillData = n.data || n;
+
+    // Legacy support for old bar system (hidden by CSS)
+    const jsBar = document.getElementById("JSbar");
+    const phpBar = document.getElementById("PHPbar");
+    const htmlBar = document.getElementById("HTMLbar");
+    const cssBar = document.getElementById("CSSbar");
+    const sqlBar = document.getElementById("SQLbar");
+
+    if (jsBar) jsBar.style.width = filterXSS(skillData.js) + "%";
+    if (phpBar) phpBar.style.width = filterXSS(skillData.php) + "%";
+    if (htmlBar) htmlBar.style.width = filterXSS(skillData.html) + "%";
+    if (cssBar) cssBar.style.width = filterXSS(skillData.css) + "%";
+    if (sqlBar) sqlBar.style.width = filterXSS(skillData.sql) + "%";
+
+    skills.innerHTML = `Skills`;
+    hoverAnimation(event.target);
+    modalAnimation(event);
+
+    // Initialize skill animations
+    setTimeout(() => {
+      triggerSkillAnimations(skillData);
+    }, 200);
+
+    history.pushState({}, "", "/#skills");
+  } catch (error) {
+    console.error("Skills loading error:", error);
+    skills.innerHTML = `Skills`;
+    hoverAnimation(event.target);
+    modalAnimation(event);
+  }
 }
 
 async function runBlog(e) {
