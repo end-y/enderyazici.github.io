@@ -1,5 +1,5 @@
 const secs = Array.from(document.querySelectorAll(".sec"));
-const url = "https://charming-talent-9421d2d2ae.strapiapp.com/api";
+const url = "https://charming-talent-9421d2d2ae.strapiapp.com/api/";
 const about = document.getElementById("about");
 const contact = document.getElementById("contact");
 const skills = document.getElementById("skills");
