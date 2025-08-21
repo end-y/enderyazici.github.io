@@ -33,6 +33,46 @@ canvas {
   box-shadow: none !important;
   outline: 0px !important;
 }
+
+/* Mobile menu styling */
+@media (max-width: 768px) {
+  .border.d-flex.bg-black {
+    transform: skew(-10deg) scale(0.9);
+    max-width: none;
+    width: auto;
+    margin: 0 auto;
+  }
+
+  .btnSkew {
+    font-size: 0.8rem !important;
+    padding: 0.35rem 0.6rem !important;
+    margin: 0 !important;
+    white-space: nowrap;
+    min-width: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .border.d-flex.bg-black {
+    transform: skew(-10deg) scale(0.85);
+  }
+
+  .btnSkew {
+    font-size: 0.7rem !important;
+    padding: 0.3rem 0.5rem !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .border.d-flex.bg-black {
+    transform: skew(-10deg) scale(0.75);
+  }
+
+  .btnSkew {
+    font-size: 0.65rem !important;
+    padding: 0.25rem 0.4rem !important;
+  }
+}
 .sec {
   overflow: hidden;
   width: 100%;
