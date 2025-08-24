@@ -93,7 +93,6 @@ function modalAnimation(e, blog = false) {
     }
   );
   anim.onfinish = () => others.classList.add("d-none");
-  others.onanimationend = () => alert("hello");
 
   el.animate(
     [

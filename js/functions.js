@@ -91,15 +91,12 @@ async function runContact(e) {
 
 // Modern Skills Animation Functions
 function animateProgressRing(element, percentage, duration = 1000) {
-  // Dinamik circumference hesaplaması
-  const progressRing = element.closest(".progress-ring");
-  const ringWidth = progressRing ? progressRing.offsetWidth : 80;
-  const radius = ringWidth / 2 - 4; // stroke-width için margin
-  const circumference = 2 * Math.PI * radius;
+  // SVG'de radius=36 kullanıyoruz, bu yüzden circumference sabit
+  const circumference = 226.19; // 2 * π * 36
 
   const offset = circumference - (percentage / 100) * circumference;
 
-  // Set initial state
+  // Set initial state - CSS'teki değerleri override etme
   element.style.strokeDasharray = circumference;
   element.style.strokeDashoffset = circumference;
 
@@ -124,6 +121,8 @@ function animatePercentageText(element, targetPercentage, duration = 1000) {
 }
 
 function triggerSkillAnimations(skillData) {
+  console.log("triggerSkillAnimations çağrıldı:", skillData); // Debug
+
   const skills = [
     { id: "js", name: "javascript", value: skillData.js },
     { id: "php", name: "php", value: skillData.php },
@@ -137,15 +136,29 @@ function triggerSkillAnimations(skillData) {
     const percentage = document.getElementById(`${skill.id}-percentage`);
     const card = document.querySelector(`[data-skill="${skill.name}"]`);
 
+    console.log(`Skill ${skill.name}:`, {
+      circle,
+      percentage,
+      card,
+      value: skill.value,
+    }); // Debug
+
     if (circle && percentage && card) {
       // Update data attribute with actual value from backend
       card.setAttribute("data-percentage", skill.value);
 
       // Animate progress ring
       setTimeout(() => {
+        console.log(`Animating ${skill.name} with ${skill.value}%`); // Debug
         animateProgressRing(circle, skill.value);
         animatePercentageText(percentage, skill.value);
       }, index * 100);
+    } else {
+      console.error(`Missing elements for ${skill.name}:`, {
+        circle,
+        percentage,
+        card,
+      }); // Debug
     }
   });
 }

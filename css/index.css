@@ -350,6 +350,7 @@ canvas {
   fill: none;
   stroke: #e0e0e0;
   stroke-width: 4;
+  stroke-dasharray: none; /* Background circle daima görünür olsun */
 }
 
 .progress-ring-circle {
@@ -425,13 +426,10 @@ canvas {
   }
 
   .progress-ring-circle {
-    stroke-dasharray: 141.37; /* 45px ring için 2 * π * 22.5 */
-    stroke-dashoffset: 141.37;
     stroke-width: 3;
   }
 
   .progress-ring-circle-bg {
-    stroke-dasharray: 141.37;
     stroke-width: 3;
   }
 
@@ -465,13 +463,10 @@ canvas {
   }
 
   .progress-ring-circle {
-    stroke-dasharray: 125.66; /* 40px ring için 2 * π * 20 */
-    stroke-dashoffset: 125.66;
     stroke-width: 2.5;
   }
 
   .progress-ring-circle-bg {
-    stroke-dasharray: 125.66;
     stroke-width: 2.5;
   }
 
