@@ -33,46 +33,6 @@ canvas {
   box-shadow: none !important;
   outline: 0px !important;
 }
-
-/* Mobile menu styling */
-@media (max-width: 768px) {
-  .border.d-flex.bg-black {
-    transform: skew(-10deg) scale(0.9);
-    max-width: none;
-    width: auto;
-    margin: 0 auto;
-  }
-
-  .btnSkew {
-    font-size: 0.8rem !important;
-    padding: 0.35rem 0.6rem !important;
-    margin: 0 !important;
-    white-space: nowrap;
-    min-width: auto;
-  }
-}
-
-@media (max-width: 480px) {
-  .border.d-flex.bg-black {
-    transform: skew(-10deg) scale(0.85);
-  }
-
-  .btnSkew {
-    font-size: 0.7rem !important;
-    padding: 0.3rem 0.5rem !important;
-  }
-}
-
-@media (max-width: 360px) {
-  .border.d-flex.bg-black {
-    transform: skew(-10deg) scale(0.75);
-  }
-
-  .btnSkew {
-    font-size: 0.65rem !important;
-    padding: 0.25rem 0.4rem !important;
-  }
-}
 .sec {
   overflow: hidden;
   width: 100%;
@@ -81,7 +41,6 @@ canvas {
 .bg-white {
   background-color: white;
 }
-/* Legacy bar styles - keeping for backwards compatibility */
 .bar {
   background-color: #ece2df;
   height: 23px;
@@ -89,134 +48,6 @@ canvas {
 }
 .skillhead {
   min-width: 75px;
-}
-
-/* Modern Skills Section Styles */
-.skills-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  padding: 0.5rem;
-  max-width: 400px;
-  margin: 0 auto;
-}
-
-.skill-card {
-  background: transparent;
-  padding: 0.8rem;
-  text-align: center;
-  position: relative;
-}
-
-.skill-progress {
-  position: relative;
-  margin: 0.5rem 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.progress-ring {
-  transform: rotate(-90deg);
-  width: 80px;
-  height: 80px;
-}
-
-.progress-ring-circle-bg {
-  fill: none;
-  stroke: #e6e6e6;
-  stroke-width: 5;
-  opacity: 0.3;
-  cx: 40;
-  cy: 40;
-  r: 35;
-}
-
-.progress-ring-circle {
-  fill: none;
-  stroke-width: 5;
-  stroke-linecap: round;
-  stroke-dasharray: 219.91; /* 2 * π * 35 (new radius) */
-  stroke-dashoffset: 219.91;
-  transition: all 1s ease;
-  cx: 40;
-  cy: 40;
-  r: 35;
-}
-
-/* Individual skill colors */
-.skill-card[data-skill="javascript"] .progress-ring-circle {
-  stroke: #f7df1e;
-}
-
-.skill-card[data-skill="php"] .progress-ring-circle {
-  stroke: #777bb4;
-}
-
-.skill-card[data-skill="html"] .progress-ring-circle {
-  stroke: #e34f26;
-}
-
-.skill-card[data-skill="css"] .progress-ring-circle {
-  stroke: #1572b6;
-}
-
-.skill-card[data-skill="sql"] .progress-ring-circle {
-  stroke: #336791;
-}
-
-.skill-percentage {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #2d3436;
-}
-
-.skill-name {
-  font-weight: 500;
-  color: #2d3436;
-  margin-top: 0.5rem;
-  font-size: 1rem;
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-  .skills-container {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.8rem;
-    max-width: 350px;
-  }
-}
-
-@media (max-width: 480px) {
-  .skills-container {
-    grid-template-columns: repeat(2, 1fr);
-    max-width: 280px;
-    gap: 0.8rem;
-  }
-
-  .progress-ring {
-    width: 65px;
-    height: 65px;
-  }
-
-  .progress-ring-circle,
-  .progress-ring-circle-bg {
-    cx: 32.5;
-    cy: 32.5;
-    r: 27;
-  }
-
-  .skill-percentage {
-    font-size: 0.8rem;
-  }
-
-  .skill-name {
-    font-size: 0.9rem;
-  }
 }
 
 .lds-dual-ring {
