@@ -91,10 +91,16 @@ async function runContact(e) {
 
 // Modern Skills Animation Functions
 function animateProgressRing(element, percentage, duration = 1000) {
-  const circumference = 219.91; // 2 * π * 35 (radius)
+  // Dinamik circumference hesaplaması
+  const progressRing = element.closest(".progress-ring");
+  const ringWidth = progressRing ? progressRing.offsetWidth : 80;
+  const radius = ringWidth / 2 - 4; // stroke-width için margin
+  const circumference = 2 * Math.PI * radius;
+
   const offset = circumference - (percentage / 100) * circumference;
 
   // Set initial state
+  element.style.strokeDasharray = circumference;
   element.style.strokeDashoffset = circumference;
 
   // Animate to target
