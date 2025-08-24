@@ -356,8 +356,8 @@ canvas {
   fill: none;
   stroke-width: 4;
   stroke-linecap: round;
-  stroke-dasharray: 219.91;
-  stroke-dashoffset: 219.91;
+  stroke-dasharray: 226.19; /* 2 * π * 36 */
+  stroke-dashoffset: 226.19;
   transition: stroke-dashoffset 1s ease-in-out;
 }
 
@@ -425,12 +425,13 @@ canvas {
   }
 
   .progress-ring-circle {
-    stroke-dasharray: 123.7; /* 45px için ayarlandı */
+    stroke-dasharray: 141.37; /* 45px ring için 2 * π * 22.5 */
+    stroke-dashoffset: 141.37;
     stroke-width: 3;
   }
 
   .progress-ring-circle-bg {
-    stroke-dasharray: 123.7;
+    stroke-dasharray: 141.37;
     stroke-width: 3;
   }
 
@@ -464,12 +465,13 @@ canvas {
   }
 
   .progress-ring-circle {
-    stroke-dasharray: 109.96; /* 40px için ayarlandı */
+    stroke-dasharray: 125.66; /* 40px ring için 2 * π * 20 */
+    stroke-dashoffset: 125.66;
     stroke-width: 2.5;
   }
 
   .progress-ring-circle-bg {
-    stroke-dasharray: 109.96;
+    stroke-dasharray: 125.66;
     stroke-width: 2.5;
   }
 
