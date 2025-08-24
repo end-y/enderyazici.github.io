@@ -1,5 +1,7 @@
 const secs = Array.from(document.querySelectorAll(".sec"));
-const url = "https://enderyazici-githubio-be-production.up.railway.app/api/";
+
+// Güvenli API URL konfigürasyonu
+const url = CONFIG.API.BASE_URL;
 const about = document.getElementById("about");
 const contact = document.getElementById("contact");
 const skills = document.getElementById("skills");
@@ -110,33 +112,82 @@ function modalAnimation(e, blog = false) {
 
 async function get(link) {
   try {
-    let response = await fetch(url + link, {
+    // URL doğrulama
+    const fullUrl = url + link;
+
+    if (!isValidURL(fullUrl)) {
+      console.error("URL validation failed for:", fullUrl);
+      throw new Error("Invalid URL detected");
+    }
+
+    // Timeout ile güvenli fetch
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), CONFIG.API.TIMEOUT);
+
+    let response = await fetch(fullUrl, {
       method: "GET",
+      signal: controller.signal,
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
     });
+
+    clearTimeout(timeoutId);
+
     if (response.ok) {
-      return await response.json();
+      const data = await response.json();
+      // Response validation
+      if (typeof data === "object" && data !== null) {
+        return data;
+      } else {
+        throw new Error("Invalid response format");
+      }
     } else if (response.status === 404) {
       return Promise.reject("error 404");
     } else {
       return Promise.reject("some other error: " + response.status);
     }
   } catch (error) {
-    console.log("error is", error);
+    console.error("API error:", error);
+    throw error;
   }
 }
 async function getFull(link) {
   try {
+    // External URL validation
+    if (!isValidURL(link)) {
+      throw new Error("Invalid external URL detected");
+    }
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), CONFIG.API.TIMEOUT);
+
     let response = await fetch(link, {
       method: "GET",
+      signal: controller.signal,
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
     });
+
+    clearTimeout(timeoutId);
+
     if (response.ok) {
-      return await response.json();
+      const data = await response.json();
+      if (typeof data === "object" && data !== null) {
+        return data;
+      } else {
+        throw new Error("Invalid response format");
+      }
     } else if (response.status === 404) {
       return Promise.reject("error 404");
     } else {
       return Promise.reject("some other error: " + response.status);
     }
   } catch (error) {
-    console.log("error is", error);
+    console.error("External API error:", error);
+    throw error;
   }
 }

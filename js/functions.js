@@ -19,31 +19,24 @@ function renderMarkdown(text, isPreview = false) {
   try {
     // Markdown'ı HTML'e çevir
     const rawHtml = marked.parse(processedText);
-    // XSS koruması ile temizle
+    // Güçlendirilmiş XSS koruması
     return filterXSS(rawHtml, {
-      whiteList: {
-        h1: [],
-        h2: [],
-        h3: [],
-        h4: [],
-        h5: [],
-        h6: [],
-        p: [],
-        br: [],
-        strong: [],
-        b: [],
-        em: [],
-        i: [],
-        u: [],
-        ul: [],
-        ol: [],
-        li: [],
-        blockquote: [],
-        code: [],
-        pre: ["class"],
-        a: ["href", "target", "rel"],
-        img: ["src", "alt", "title", "width", "height"],
-        hr: [],
+      whiteList: CONFIG.SECURITY.ALLOWED_HTML_TAGS,
+      stripIgnoreTag: true,
+      stripIgnoreTagBody: ["script", "style"],
+      onIgnoreTagAttr: function (tag, name, value, isWhiteAttr) {
+        // Sadece güvenli attributelere izin ver
+        if (name === "href") {
+          // URL validation for links
+          if (
+            isValidURL(value) ||
+            value.startsWith("#") ||
+            value.startsWith("/")
+          ) {
+            return name + '="' + filterXSS.escapeAttrValue(value) + '"';
+          }
+          return "";
+        }
       },
     });
   } catch (error) {
